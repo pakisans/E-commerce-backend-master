@@ -2,6 +2,7 @@ package app.ecommerce_backend.controller;
 
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +53,8 @@ public class UserController {
 	
 	
 	@RequestMapping()
-	public ResponseEntity<Iterable<UserDTO>> getUsers(){
-		return new ResponseEntity<Iterable<UserDTO>>(UserDTOAdapter.convertToDTOs(userService.getUsers()),HttpStatus.OK);
+	public ResponseEntity<List<User>> getUsers(){
+		return new ResponseEntity<List<User>>(userService.getUsers(),HttpStatus.OK);
 		
 	}
 	

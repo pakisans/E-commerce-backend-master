@@ -1,40 +1,41 @@
 package app.ecommerce_backend.model.dto;
 
-
 public class OrderDTO {
-	private Long id;
 	private double price;
-	private double quantity;
-	private UserDTO userDTO;
-	
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private String address;
+	private Long userId;
+	private Long cartId;
+
 	public double getPrice() {
 		return price;
 	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public double getQuantity() {
-		return quantity;
+
+	public String getAddress() {
+		return address;
 	}
-	public void setQuantity(double quantity) {
-		this.quantity = quantity;
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public UserDTO getUserDTO() {
-		return userDTO;
+
+	public Long getUserId() {
+		return userId;
 	}
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
-	
-	
-	
-	
+
+	public Long getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Long cartId) {
+		this.cartId = cartId;
+	}
 
 }

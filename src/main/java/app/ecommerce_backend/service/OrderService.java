@@ -1,20 +1,31 @@
 package app.ecommerce_backend.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.ecommerce_backend.model.Order;
+import app.ecommerce_backend.model.dto.OrderDTO;
+import app.ecommerce_backend.repository.CartRepository;
 import app.ecommerce_backend.repository.OrderRepository;
+import app.ecommerce_backend.repository.UserRepository;
 
 @Service
 public class OrderService {
+	
 	@Autowired
 	OrderRepository orderRepo;
 	
+	@Autowired
+	UserRepository userRepo;
 	
-	public Iterable<Order> getOrders(){
+	@Autowired
+	CartRepository cartRepo;
+	
+	
+	public List<Order> getOrders(){
 		return orderRepo.findAll();
 	}
 	
@@ -22,8 +33,13 @@ public class OrderService {
 		return orderRepo.findById(id);
 	}
 	
-	public void addOrder(Order order) {
-		orderRepo.save(order);
+	public Order addOrder(OrderDTO orderDto) {
+		Order order = new Order();
+		order.setUser(userRepo.getById(orderDto.getUserId()));
+		order.setAddress(orderDto.getAddress());
+		order.setCart(cartRepo.getById(orderDto.getCartId()));
+		order.setPrice(orderDto.getPrice());
+		return orderRepo.save(order);
 	}
 	
 	public void removeOrder(Long id) {

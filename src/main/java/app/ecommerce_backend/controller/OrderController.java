@@ -1,5 +1,6 @@
 package app.ecommerce_backend.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,44 +27,43 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@RequestMapping()
-	public ResponseEntity<Iterable<OrderDTO>> getOrders(){
-		return new ResponseEntity<Iterable<OrderDTO>>(OrderDTOAdapter.convertToDTOs(orderService.getOrders()),HttpStatus.OK);
+	@RequestMapping(value = "")
+	public ResponseEntity<List<Order>> getOrders(){
+		return new ResponseEntity<List<Order>>(orderService.getOrders(), HttpStatus.OK);
 		
 	}
 	
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
+	@RequestMapping(value="/get/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
 		
         Optional<Order> order= orderService.getOrderById(id);
         if(order.isPresent()) {
-            return new ResponseEntity<OrderDTO>(OrderDTOAdapter.convertToDTO(order.get()), HttpStatus.OK);
+            return new ResponseEntity<Order>(order.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
     }
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
-    public ResponseEntity<OrderDTO> addOrder(@RequestBody Order order) {
-		orderService.addOrder(order);
-        return new ResponseEntity<OrderDTO>(OrderDTOAdapter.convertToDTO(order), HttpStatus.CREATED);
+	@RequestMapping(value="/addOrder", method=RequestMethod.POST)
+    public ResponseEntity<Order> addOrder(@RequestBody OrderDTO orderDto) {
+        return new ResponseEntity<Order>(orderService.addOrder(orderDto), HttpStatus.CREATED);
     }
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<OrderDTO> removeOrder(@PathVariable Long id) {
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Order> removeOrder(@PathVariable Long id) {
         try {
         	orderService.removeOrder(id);
         }catch (Exception e) {
-            return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<OrderDTO>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Order>(HttpStatus.NO_CONTENT);
     }
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-		orderService.updateOrder(id, order);
-        return new ResponseEntity<OrderDTO>(OrderDTOAdapter.convertToDTO(order), HttpStatus.CREATED);
-    }
+//	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+//    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+//		orderService.updateOrder(id, order);
+//        return new ResponseEntity<OrderDTO>(OrderDTOAdapter.convertToDTO(order), HttpStatus.CREATED);
+//    }
 
 }

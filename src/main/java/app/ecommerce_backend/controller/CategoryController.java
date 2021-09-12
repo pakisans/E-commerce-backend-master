@@ -1,5 +1,6 @@
 package app.ecommerce_backend.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +27,34 @@ public class CategoryController {
 	CategoryService categoryService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public ResponseEntity<Iterable<CategoryDTO>> getCategories(){
-		return new ResponseEntity<Iterable<CategoryDTO>>(CategoryDTOAdapter.convertToDTOs(categoryService.getCategories()),HttpStatus.OK);
+	public ResponseEntity<List<Category>> getCategories(){
+		return new ResponseEntity<List<Category>>(categoryService.getCategories(),HttpStatus.OK);
 		
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Long id) {
+	@RequestMapping(value="/get/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
         Optional<Category> category= categoryService.getCategoryById(id);
         if(category.isPresent()) {
-            return new ResponseEntity<CategoryDTO>(CategoryDTOAdapter.convertToDTO(category.get()), HttpStatus.OK);
+            return new ResponseEntity<Category>(category.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
     }
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
-    public ResponseEntity<CategoryDTO> addCategory(@RequestBody Category category) {
-    	categoryService.addCategory(category);
-        return new ResponseEntity<CategoryDTO>(CategoryDTOAdapter.convertToDTO(category), HttpStatus.CREATED);
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+    public ResponseEntity<Category> addCategory(@RequestBody CategoryDTO categoryDto) {
+        return new ResponseEntity<Category>(categoryService.addCategory(categoryDto), HttpStatus.CREATED);
     }
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<CategoryDTO> removeCategory(@PathVariable Long id) {
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
+    public ResponseEntity<Category> removeCategory(@PathVariable Long id) {
         try {
         	categoryService.removeCategory(id);
         }catch (Exception e) {
-            return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<CategoryDTO>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
     }
 	
 

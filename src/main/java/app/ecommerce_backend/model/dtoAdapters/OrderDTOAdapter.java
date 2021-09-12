@@ -9,18 +9,18 @@ public class OrderDTOAdapter {
 	
 	public static OrderDTO convertToDTO(Order order) {
 		OrderDTO dto = new OrderDTO();
-		dto.setId(order.getId());
+//		dto.setId(order.getId());
 		dto.setPrice(order.getPrice());
-		dto.setUserDTO(UserDTOAdapter.convertToDTO(order.getUser()));
+//		dto.setUserDTO(UserDTOAdapter.convertToDTO(order.getUser()));
 		return dto;
 		
 	}
 	
 	public static Order convertFromDTO(OrderDTO dto) {
 		Order order = new Order();
-		order.setId(dto.getId());
+//		order.setId(dto.getId());
 		order.setPrice(dto.getPrice());
-		order.setUser(UserDTOAdapter.convertFromDTO(dto.getUserDTO()));
+//		order.setUser(UserDTOAdapter.convertFromDTO(dto.getUserDTO()));
 		
 		return order;
 	}

@@ -12,7 +12,7 @@ public class CartItemDTOAdapter {
 		CartItemDTO dto = new CartItemDTO();
 		dto.setId(cartItem.getId());
 		dto.setQuantity(cartItem.getQuantity());
-		dto.setProductDTO(ProductDTOAdapter.convertToDTO(cartItem.getProduct()));
+//		dto.setProductDTO(ProductDTOAdapter.convertToDTO(cartItem.getProduct()));
 		dto.setCartDTO(CartDTOAdapter.convertToDTO(cartItem.getCart()));
 		
 		
@@ -24,7 +24,7 @@ public class CartItemDTOAdapter {
 		CartItem cartItem = new CartItem();
 		cartItem.setId(dto.getId());
 		cartItem.setQuantity(dto.getQuantity());
-		cartItem.setProduct(ProductDTOAdapter.convertFromDTO(dto.getProductDTO()));
+//		cartItem.setProduct(ProductDTOAdapter.convertFromDTO(dto.getProductDTO()));
 		cartItem.setCart(CartDTOAdapter.convertFromDTO(dto.getCartDTO()));
 		
 		return cartItem;

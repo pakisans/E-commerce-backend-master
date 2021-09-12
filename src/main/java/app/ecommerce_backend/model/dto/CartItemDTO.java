@@ -1,11 +1,11 @@
 package app.ecommerce_backend.model.dto;
 
-
+import app.ecommerce_backend.model.Product;
 
 public class CartItemDTO {
 	private Long id;
 	private double quantity;
-	private ProductDTO productDTO;
+	private Product product;
 	private CartDTO cartDTO;
 	
 	
@@ -21,11 +21,11 @@ public class CartItemDTO {
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
-	public ProductDTO getProductDTO() {
-		return productDTO;
+	public Product getProduct() {
+		return product;
 	}
-	public void setProductDTO(ProductDTO productDTO) {
-		this.productDTO = productDTO;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	public CartDTO getCartDTO() {
 		return cartDTO;

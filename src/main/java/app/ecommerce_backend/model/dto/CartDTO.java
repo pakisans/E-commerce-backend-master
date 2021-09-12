@@ -1,23 +1,20 @@
 package app.ecommerce_backend.model.dto;
 
+import java.util.List;
 
 public class CartDTO {
-	private Long id;
-	private UserDTO userDTO;
+	
+	private List<CartItemDTO> cartItems;
 	
 	
-	public Long getId() {
-		return id;
+	
+	public List<CartItemDTO> getCartItems() {
+		return cartItems;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setCartItems(List<CartItemDTO> cartItems) {
+		this.cartItems = cartItems;
 	}
-	public UserDTO getUserDTO() {
-		return userDTO;
-	}
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
-	}
+	
 	
 	
 	

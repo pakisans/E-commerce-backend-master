@@ -9,7 +9,7 @@ public class CartDTOAdapter {
 	
 	public static CartDTO convertToDTO(Cart cart) {
 		CartDTO dto = new CartDTO();
-		dto.setId(cart.getId());
+//		dto.setId(cart.getId());
 //		dto.setUserDTO(UserDTOAdapter.convertToDTO(cart.getUser()));
 		
 		return dto;
@@ -18,7 +18,7 @@ public class CartDTOAdapter {
 	
 	public static Cart convertFromDTO(CartDTO dto) {
 		Cart cart = new Cart();
-		cart.setId(dto.getId());
+//		cart.setId(dto.getId());
 //		cart.setUser(UserDTOAdapter.convertFromDTO(dto.getUserDTO()));
 		
 		return cart;

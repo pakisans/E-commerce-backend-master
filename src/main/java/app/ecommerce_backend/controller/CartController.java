@@ -26,19 +26,19 @@ public class CartController {
 	CartService cartService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<CartDTO> getCartById(@PathVariable Long id) {
+    public ResponseEntity<Cart> getCartById(@PathVariable Long id) {
 		
         Optional<Cart> cart = cartService.getCartById(id);
         if(cart.isPresent()) {
-            return new ResponseEntity<CartDTO>(CartDTOAdapter.convertToDTO(cart.get()), HttpStatus.OK);
+            return new ResponseEntity<Cart>(cart.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<CartDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Cart>(HttpStatus.NOT_FOUND);
     }
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-    public ResponseEntity<CartDTO> addCart(@RequestBody Cart cart) {
-    	cartService.addCart(cart);
-        return new ResponseEntity<CartDTO>(CartDTOAdapter.convertToDTO(cart), HttpStatus.CREATED);
+    public ResponseEntity<Cart> addCart(@RequestBody CartDTO cartDto) {
+    	Cart cart = cartService.addCart(cartDto);
+        return new ResponseEntity<Cart>(cart, HttpStatus.CREATED);
     }
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

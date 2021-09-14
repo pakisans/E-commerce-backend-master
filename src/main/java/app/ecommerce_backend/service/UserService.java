@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
 	public User addUserAdmin(UserDTO userDto) {
 		User user = new User();
 		user.setEmail(userDto.getEmail());
-		user.setFirstName(userDto.getEmail());
+		user.setFirstName(userDto.getFirstName());
 		user.setPassword(encoder().encode(userDto.getPassword()));
 		user.setDeleted(false);
 		user.setLastName(userDto.getLastName());

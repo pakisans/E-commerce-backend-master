@@ -26,7 +26,7 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="/getCategories", method=RequestMethod.GET)
 	public ResponseEntity<List<Category>> getCategories(){
 		return new ResponseEntity<List<Category>>(categoryService.getCategories(),HttpStatus.OK);
 		

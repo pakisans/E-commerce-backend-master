@@ -3,6 +3,7 @@ package app.ecommerce_backend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,5 +74,11 @@ public class ProductService {
 		}
 		return null;
 	}
+
+	public List<Product> getProductsByCategory(Long catId) {	
+		return getProducts().stream()
+				.filter(p -> p.getCategory().getId() == catId)
+				.collect(Collectors.toList());
+	} 
 
 }

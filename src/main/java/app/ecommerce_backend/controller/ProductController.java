@@ -40,6 +40,12 @@ public class ProductController {
         }
         return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
     }
+	
+	@RequestMapping(value = "/getProductsByCategory/{catId}")
+	public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable("catId") Long catId) {
+		return new ResponseEntity<List<Product>>
+				(productService.getProductsByCategory(catId), HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public ResponseEntity<Product> addProduct(@RequestBody ProductDTO productDto) {

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.Product;
 import app.ecommerce_backend.model.dto.ProductDTO;
-import app.ecommerce_backend.model.dtoAdapters.ProductDTOAdapter;
 import app.ecommerce_backend.service.ProductService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -48,20 +47,19 @@ public class ProductController {
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<ProductDTO> removeProduct(@PathVariable Long id) {
+    public ResponseEntity<Product> removeProduct(@PathVariable Long id) {
         try {
         	productService.removeProduct(id);
         }catch (Exception e) {
-            return new ResponseEntity<ProductDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<ProductDTO>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
     }
-//	
-//	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-//    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-//    	productService.updateProduct(id, product);
-//        return new ResponseEntity<ProductDTO>(ProductDTOAdapter.convertToDTO(product), HttpStatus.CREATED);
-//    }
+	
+	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDto) {
+        return new ResponseEntity<Product>(productService.updateProduct(id, productDto), HttpStatus.CREATED);
+    }
 
 }

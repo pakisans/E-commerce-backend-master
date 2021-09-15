@@ -56,10 +56,10 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void removeUser(Long id) {
-		Optional<User> us = userRepo.findById(id);
-		if(us.isPresent()) {
-			us.get().setDeleted(true);
-			userRepo.save(us.get());
+		User us = userRepo.findById(id).get();
+		if(us != null) {
+			us.setDeleted(true);
+			userRepo.save(us);
 		}
 	}
 	

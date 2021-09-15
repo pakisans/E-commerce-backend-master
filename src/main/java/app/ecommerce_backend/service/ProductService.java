@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import app.ecommerce_backend.model.Product;
 import app.ecommerce_backend.model.dto.ProductDTO;
-import app.ecommerce_backend.model.dtoAdapters.ProductDTOAdapter;
 import app.ecommerce_backend.repository.ProductRepository;
 
 
@@ -41,22 +40,25 @@ public class ProductService {
 		return productRepo.save(newProduct);
 	}
 	
-	public void removeProduct(Long id) {
-		Optional<Product> pr = productRepo.findById(id);
-		if(pr.isPresent()) {
-			pr.get().setDeleted(true);
-			productRepo.save(pr.get());
+	public Product removeProduct(Long id) {
+		Product pr = productRepo.findById(id).get();
+		if(pr != null) {
+			pr.setDeleted(true);
+			return productRepo.save(pr);
 		}
+		return null;
 	}
 	
-	public void updateProduct(Long id,Product product) {
-		Optional<Product> pr = productRepo.findById(id);
-		if(pr.isPresent()) {
-			pr.get().setName(product.getName());
-			pr.get().setPrice(product.getPrice());
-			pr.get().setDescription(product.getDescription());
-			productRepo.save(pr.get());
+	public Product updateProduct(Long id,ProductDTO productDto) {
+		Product pr = productRepo.findById(id).get();
+		if(pr != null) {
+			pr.setName(productDto.getName());
+			pr.setPrice(productDto.getPrice());
+			pr.setDescription(productDto.getDescription());
+			pr.setImage(productDto.getImage());
+			return productRepo.save(pr);
 		}
+		return null;
 	}
 
 }

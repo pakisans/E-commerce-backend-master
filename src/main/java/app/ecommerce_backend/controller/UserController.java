@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.User;
 import app.ecommerce_backend.model.dto.UserDTO;
-import app.ecommerce_backend.model.dtoAdapters.UserDTOAdapter;
 import app.ecommerce_backend.repository.UserRepository;
 import app.ecommerce_backend.security.Jwt;
 import app.ecommerce_backend.security.JwtRequest;
@@ -52,7 +51,7 @@ public class UserController {
 	
 	
 	
-	@RequestMapping()
+	@RequestMapping(value = "/getUsers")
 	public ResponseEntity<List<User>> getUsers(){
 		return new ResponseEntity<List<User>>(userService.getUsers(),HttpStatus.OK);
 		
@@ -60,13 +59,13 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/get/{id}", method=RequestMethod.GET)
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
 		
         Optional<User> user= userService.getUserById(id);
         if(user.isPresent()) {
-            return new ResponseEntity<UserDTO>(UserDTOAdapter.convertToDTO(user.get()), HttpStatus.OK);
+            return new ResponseEntity<User>(user.get(), HttpStatus.OK);
         }
-        return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
     }
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
@@ -82,20 +81,20 @@ public class UserController {
     }
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity<UserDTO> removeUser(@PathVariable Long id) {
+    public ResponseEntity<User> removeUser(@PathVariable Long id) {
         try {
         	userService.removeUser(id);
         }catch (Exception e) {
-            return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<UserDTO>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
 	
 	@RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
     	userService.updateUser(id, user);
-        return new ResponseEntity<UserDTO>(UserDTOAdapter.convertToDTO(user), HttpStatus.CREATED);
+        return new ResponseEntity<User>(HttpStatus.CREATED);
     }
 	
 	

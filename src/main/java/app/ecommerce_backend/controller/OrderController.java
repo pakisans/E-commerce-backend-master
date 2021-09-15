@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.Order;
 import app.ecommerce_backend.model.dto.OrderDTO;
-import app.ecommerce_backend.model.dtoAdapters.OrderDTOAdapter;
 import app.ecommerce_backend.service.OrderService;
 
 

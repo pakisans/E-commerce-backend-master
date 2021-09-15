@@ -33,13 +33,22 @@ public class CategoryService {
 		return categoryRepo.save(category);
 	}
 	
-	public void removeCategory(Long id) {
-		Optional<Category> ca = categoryRepo.findById(id);
-		if(ca.isPresent()) {
-			ca.get().setDeleted(true);
-			categoryRepo.save(ca.get());
-			
+	public Category removeCategory(Long id) {
+		Category ca = categoryRepo.findById(id).get();
+		if(ca != null) {
+			ca.setDeleted(true);
+			return categoryRepo.save(ca);		
 		}
+		return null;
+	}
+	
+	public Category updateCategory(Long id, CategoryDTO categoryDto) {
+		Category cat = categoryRepo.findById(id).get();
+		if(cat != null) {
+			cat.setName(categoryDto.getName());
+			return categoryRepo.save(cat);
+		}
+		return null;
 	}
 	
 	

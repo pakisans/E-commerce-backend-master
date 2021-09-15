@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.Cart;
 import app.ecommerce_backend.model.dto.CartDTO;
-import app.ecommerce_backend.model.dtoAdapters.CartDTOAdapter;
 import app.ecommerce_backend.service.CartService;
 
 @CrossOrigin(origins={"http://localhost:4200"})

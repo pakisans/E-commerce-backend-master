@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.Category;
 import app.ecommerce_backend.model.dto.CategoryDTO;
-import app.ecommerce_backend.model.dtoAdapters.CategoryDTOAdapter;
 import app.ecommerce_backend.service.CategoryService;
 
 @CrossOrigin(origins={"http://localhost:4200"})
@@ -32,7 +31,7 @@ public class CategoryController {
 		
 	}
 	
-	@RequestMapping(value="/get/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/getCategory/{id}", method=RequestMethod.GET)
     public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
         Optional<Category> category= categoryService.getCategoryById(id);
         if(category.isPresent()) {
@@ -49,13 +48,19 @@ public class CategoryController {
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Category> removeCategory(@PathVariable Long id) {
         try {
-        	categoryService.removeCategory(id);
+        	return new ResponseEntity<Category>(categoryService.removeCategory(id), HttpStatus.NO_CONTENT);
         }catch (Exception e) {
             return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
     }
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Category> updateCategory(@PathVariable Long id,
+			@RequestBody CategoryDTO categoryDto){
+		return new ResponseEntity<Category>
+			(categoryService.updateCategory(id, categoryDto), HttpStatus.OK);
+	}
 	
 
 }

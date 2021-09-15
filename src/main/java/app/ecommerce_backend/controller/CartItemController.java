@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.ecommerce_backend.model.CartItem;
 import app.ecommerce_backend.model.dto.CartItemDTO;
-import app.ecommerce_backend.model.dtoAdapters.CartItemDTOAdapter;
 import app.ecommerce_backend.service.CartItemService;
 
 @CrossOrigin(origins={"http://localhost:4200"})
@@ -26,7 +25,7 @@ public class CartItemController {
 	
 	@RequestMapping()
 	public ResponseEntity<Iterable<CartItemDTO>> getCartItems(){
-		return new ResponseEntity<Iterable<CartItemDTO>>(CartItemDTOAdapter.convertToDTOs(cartItemService.getCartItems()),HttpStatus.OK);
+		return new ResponseEntity<Iterable<CartItemDTO>>(HttpStatus.OK);
 		
 	}
 	
@@ -36,7 +35,7 @@ public class CartItemController {
 		
         Optional<CartItem> cartItem= cartItemService.getCartItemById(id);
         if(cartItem.isPresent()) {
-            return new ResponseEntity<CartItemDTO>(CartItemDTOAdapter.convertToDTO(cartItem.get()), HttpStatus.OK);
+            return new ResponseEntity<CartItemDTO> (HttpStatus.OK);
         }
         return new ResponseEntity<CartItemDTO>(HttpStatus.NOT_FOUND);
     }
@@ -44,7 +43,7 @@ public class CartItemController {
 	@RequestMapping(value="", method=RequestMethod.POST)
     public ResponseEntity<CartItemDTO> addCartItem(@RequestBody CartItem cartItem) {
 		cartItemService.addCartItem(cartItem);
-        return new ResponseEntity<CartItemDTO>(CartItemDTOAdapter.convertToDTO(cartItem), HttpStatus.CREATED);
+        return new ResponseEntity<CartItemDTO>(HttpStatus.CREATED);
     }
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
@@ -61,7 +60,7 @@ public class CartItemController {
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
     public ResponseEntity<CartItemDTO> updateCartItem(@PathVariable Long id, @RequestBody CartItem cartItem) {
 		cartItemService.updateCartItem(id, cartItem);
-        return new ResponseEntity<CartItemDTO>(CartItemDTOAdapter.convertToDTO(cartItem), HttpStatus.CREATED);
+        return new ResponseEntity<CartItemDTO>(HttpStatus.CREATED);
     }
 
 }

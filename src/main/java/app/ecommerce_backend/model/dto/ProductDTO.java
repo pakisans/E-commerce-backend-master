@@ -7,6 +7,7 @@ public class ProductDTO {
 	private double price;
 	private String description;
 	private String image;
+	private Long categoryId;
 
 	public String getName() {
 		return name;
@@ -31,6 +32,12 @@ public class ProductDTO {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 	

@@ -8,14 +8,19 @@ import org.springframework.stereotype.Service;
 
 import app.ecommerce_backend.model.Product;
 import app.ecommerce_backend.model.dto.ProductDTO;
+import app.ecommerce_backend.repository.CategoryRepository;
 import app.ecommerce_backend.repository.ProductRepository;
 
 
 
 @Service
 public class ProductService {
+	
 	@Autowired
 	ProductRepository productRepo;
+	
+	@Autowired
+	CategoryRepository categoryRepo;
 	
 	
 	public List<Product> getProducts(){
@@ -31,12 +36,12 @@ public class ProductService {
 	}
 	
 	public Product addProduct(ProductDTO productDto) {
-//		Product newProduct = ProductDTOAdapter.convertFromDTO(productDto);
 		Product newProduct = new Product();
 		newProduct.setDescription(productDto.getDescription());
 		newProduct.setImage(productDto.getImage());
 		newProduct.setName(productDto.getName());
 		newProduct.setPrice(productDto.getPrice());
+		newProduct.setCategory(categoryRepo.findById(productDto.getCategoryId()).get());
 		return productRepo.save(newProduct);
 	}
 	

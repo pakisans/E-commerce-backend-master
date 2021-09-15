@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,14 @@ public class UserService implements UserDetailsService {
 	
 	
 	public List<User> getUsers(){
-		return userRepo.findAll();
+		List<User> allUsers = userRepo.findAll();
+		List<User> users = new ArrayList<User>();
+		for(User u: allUsers) {
+			if(!u.isDeleted()) {
+				users.add(u);
+			}
+		}
+		return users;
 	}
 	
 	public Optional<User> getUserById(Long id){

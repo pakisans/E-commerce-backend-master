@@ -1,5 +1,6 @@
 package app.ecommerce_backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,14 @@ public class ProductService {
 	
 	
 	public List<Product> getProducts(){
-		return productRepo.findAll();
+		List<Product> allProducts = productRepo.findAll();
+		List<Product> products = new ArrayList<Product>();
+		for(Product p: allProducts) {
+			if(!p.isDeleted()) {
+				products.add(p);
+			}
+		}
+		return products;
 	}
 	
 	public Product getProductById(Long id){

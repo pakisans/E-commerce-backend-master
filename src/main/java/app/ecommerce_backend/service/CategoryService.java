@@ -19,7 +19,14 @@ public class CategoryService {
 	CategoryRepository categoryRepo;
 	
 	public List<Category> getCategories(){
-		return categoryRepo.findAll();
+		List<Category> allCategories =  categoryRepo.findAll();
+		List<Category> categories = new ArrayList<Category>();
+		for(Category c: allCategories) {
+			if(!c.isDeleted()) {
+				categories.add(c);
+			}
+		}
+		return categories;
 	}
 	
 	public Optional<Category> getCategoryById(Long id){

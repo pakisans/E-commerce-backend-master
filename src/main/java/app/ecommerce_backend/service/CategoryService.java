@@ -3,6 +3,7 @@ package app.ecommerce_backend.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,9 @@ public class CategoryService {
 	CategoryRepository categoryRepo;
 	
 	public List<Category> getCategories(){
-		List<Category> allCategories =  categoryRepo.findAll();
-		List<Category> categories = new ArrayList<Category>();
-		for(Category c: allCategories) {
-			if(!c.isDeleted()) {
-				categories.add(c);
-			}
-		}
-		return categories;
+		return categoryRepo.findAll().stream()
+				.filter(c -> !c.isDeleted())
+				.collect(Collectors.toList());
 	}
 	
 	public Optional<Category> getCategoryById(Long id){

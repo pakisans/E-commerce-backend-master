@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import app.ecommerce_backend.repository.UserRepository;
 import app.ecommerce_backend.security.UserPrincipal;
@@ -34,14 +35,9 @@ public class UserService implements UserDetailsService {
 	
 	
 	public List<User> getUsers(){
-		List<User> allUsers = userRepo.findAll();
-		List<User> users = new ArrayList<User>();
-		for(User u: allUsers) {
-			if(!u.isDeleted()) {
-				users.add(u);
-			}
-		}
-		return users;
+		return userRepo.findAll().stream()
+				.filter(u -> !u.isDeleted())
+				.collect(Collectors.toList());
 	}
 	
 	public Optional<User> getUserById(Long id){

@@ -26,14 +26,9 @@ public class ProductService {
 	
 	
 	public List<Product> getProducts(){
-		List<Product> allProducts = productRepo.findAll();
-		List<Product> products = new ArrayList<Product>();
-		for(Product p: allProducts) {
-			if(!p.isDeleted()) {
-				products.add(p);
-			}
-		}
-		return products;
+		return productRepo.findAll().stream()
+				.filter(p -> !p.isDeleted())
+				.collect(Collectors.toList());
 	}
 	
 	public Product getProductById(Long id){

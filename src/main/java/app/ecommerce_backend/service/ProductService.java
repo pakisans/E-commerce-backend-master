@@ -65,6 +65,7 @@ public class ProductService {
 			pr.setPrice(productDto.getPrice());
 			pr.setDescription(productDto.getDescription());
 			pr.setImage(productDto.getImage());
+			pr.setCategory(categoryRepo.findById(productDto.getCategoryId()).get());
 			return productRepo.save(pr);
 		}
 		return null;

@@ -3,7 +3,14 @@ package app.ecommerce_backend.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+
+import java.util.List;
+
 import javax.persistence.Column;
 
 @Entity
@@ -26,6 +33,11 @@ public class User {
 	
 	@Column
 	private String role;
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<Order> orders;
+	
 	
 	
 	@Column

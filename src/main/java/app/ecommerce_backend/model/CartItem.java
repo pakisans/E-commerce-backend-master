@@ -22,9 +22,9 @@ public class CartItem {
 	@ManyToOne
 	private Product product;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "cart_id")
-	private Cart cart;
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "cart_id")
+//	private Cart cart;
 	
 	@Column
 	private boolean deleted = false;
@@ -60,14 +60,14 @@ public class CartItem {
 	}
 
 
-	public Cart getCart() {
-		return cart;
-	}
-
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+//	public Cart getCart() {
+//		return cart;
+//	}
+//
+//
+//	public void setCart(Cart cart) {
+//		this.cart = cart;
+//	}
 
 
 	public boolean isDeleted() {

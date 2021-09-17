@@ -26,7 +26,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@RequestMapping(value = "")
+	@RequestMapping(value = "/getAll")
 	public ResponseEntity<List<Order>> getOrders(){
 		return new ResponseEntity<List<Order>>(orderService.getOrders(), HttpStatus.OK);
 		

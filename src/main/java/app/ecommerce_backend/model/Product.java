@@ -44,6 +44,7 @@ public class Product {
 	private Category category;
 	
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<CartItem> cartItems;
 	
 	

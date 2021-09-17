@@ -1,10 +1,12 @@
 package app.ecommerce_backend.model.dto;
 
+import java.util.List;
+
 public class OrderDTO {
 	private double price;
 	private String address;
 	private Long userId;
-	private Long cartId;
+	private List<CartItemDTO> items;
 
 	public double getPrice() {
 		return price;
@@ -30,12 +32,12 @@ public class OrderDTO {
 		this.userId = userId;
 	}
 
-	public Long getCartId() {
-		return cartId;
+	public List<CartItemDTO> getItems() {
+		return items;
 	}
 
-	public void setCartId(Long cartId) {
-		this.cartId = cartId;
+	public void setItems(List<CartItemDTO> items) {
+		this.items = items;
 	}
 
 }

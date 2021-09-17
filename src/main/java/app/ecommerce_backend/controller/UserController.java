@@ -97,6 +97,11 @@ public class UserController {
         return new ResponseEntity<User>(HttpStatus.CREATED);
     }
 	
+	@RequestMapping(value = "/getByEmail/{email}")
+	public ResponseEntity<User> getUserByEmail(@PathVariable("email")String email) {
+		return new ResponseEntity<User>(userService.getUserByEmail(email), HttpStatus.OK);
+	}
+	
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST) 
 	public JwtResponse login(@RequestBody JwtRequest jwtRequest) {

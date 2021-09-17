@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import app.ecommerce_backend.service.UserService;
 
@@ -22,12 +23,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private JwtAuthorizationFilter jwtAuthorizationFilter;
+	
+	private static final String[] ADMIN_URLS = {
+			"/users/registerAdmin", "/users/delete/**", "/users/update/**",
+			"/products/delete/**", "/products/update/**", "/products/addProduct",
+			"/categories/delete/**", "/categories/update/**", "/categories/add"
+	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable().cors().and()
-//				.authorizeRequests().antMatchers("/users/login").permitAll()
-				.authorizeRequests().antMatchers("/**").permitAll()
-				.anyRequest().authenticated();
+				.authorizeRequests().antMatchers
+					("/users/login", "/users/register", "/users/getByEmail/**").permitAll()
+				.and()
+				.authorizeRequests().antMatchers(ADMIN_URLS).hasAuthority("ADMIN")
+				.anyRequest().authenticated()
+				.and()
+				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);;
 	}
 	
 	@Override

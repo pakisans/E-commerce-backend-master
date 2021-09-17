@@ -44,8 +44,8 @@ public class UserService implements UserDetailsService {
 		return userRepo.findById(id);
 	}
 	
-	public Optional<User> getUserByEmail(String email) {
-        return userRepo.findByEmail(email);
+	public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email).get();
     }
 	
 	public User addUser(UserDTO userDto) {

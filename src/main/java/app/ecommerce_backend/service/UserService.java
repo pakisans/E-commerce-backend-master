@@ -45,7 +45,11 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public User getUserByEmail(String email) {
-        return userRepo.findByEmail(email).get();
+		Optional <User> user = userRepo.findByEmail(email);
+        if(user.isPresent()){
+        	return user.get();
+        }
+        return null;
     }
 	
 	public User addUser(UserDTO userDto) {
